@@ -8,36 +8,36 @@ const PORT = process.env.PORT || 3000
 
 const API_KEY = 'dea4dc8a0b4924b2c0d98d580f15f5c0' //<== INSERT YOUR KEY HERE
 
-function sendResponse(weatherData, res) {
+function sendResponse(recipeData, res) {
   var page = '<html><head><title>Food 4 U</title></head>' +
     '<body>' +
     '<form method="post">' +
-    'Enter Recipe: <input name="city"><br>' +
+    'Enter Recipe: <input name="ingredient"><br>' +
     '<input type="submit" value="Get Recipe">' +
     '</form>'
-  if (weatherData) {
-    console.log(JSON.parse(weatherData))
-    page += '<h1>Recipes for </h1><p>' + weatherData + '</p>'
+  if (recipeData) {
+    console.log(JSON.parse(recipeData))
+    page += '<h1>Recipes for </h1><p>' + recipeData + '</p>'
   }
   page += '</body></html>'
   res.end(page);
 }
 
-function parseWeather(weatherResponse, res) {
-  let weatherData = ''
-  weatherResponse.on('data', function(chunk) {
-    weatherData += chunk
+function parseWeather(recipeResponse, res) {
+  let recipeData = ''
+  recipeResponse.on('data', function(chunk) {
+    recipeData += chunk
   })
-  weatherResponse.on('end', function() {
-    sendResponse(weatherData, res)
+  recipeResponse.on('end', function() {
+    sendResponse(recipeData, res)
   })
 }
 
-function getWeather(city, res) {
+function getWeather(ingredient, res) {
 
   const options = {
     host: 'www.food2fork.com',
-    path: `/api/search?q=${city}&key=${API_KEY}`
+    path: `/api/search?q=${ingredient}&key=${API_KEY}`
  }
  https.request(options, function(apiResponse){
    parseWeather(apiResponse, res)
@@ -60,7 +60,7 @@ http.createServer(function(req, res) {
       console.log(reqData);
       var queryParams = qstring.parse(reqData)
       console.log(queryParams)
-      getWeather(queryParams.city, res)
+      getWeather(queryParams.ingredient, res)
     })
   } else {
     sendResponse(null, res)
