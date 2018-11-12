@@ -23,7 +23,7 @@ function sendResponse(recipeData, res) {
   res.end(page);
 }
 
-function parseWeather(recipeResponse, res) {
+function parseRecipe(recipeResponse, res) {
   let recipeData = ''
   recipeResponse.on('data', function(chunk) {
     recipeData += chunk
@@ -33,14 +33,14 @@ function parseWeather(recipeResponse, res) {
   })
 }
 
-function getWeather(ingredient, res) {
+function getRecipe(ingredient, res) {
 
   const options = {
     host: 'www.food2fork.com',
     path: `/api/search?q=${ingredient}&key=${API_KEY}`
  }
  https.request(options, function(apiResponse){
-   parseWeather(apiResponse, res)
+   parseRecipe(apiResponse, res)
  }).end()
 }
 
@@ -60,8 +60,18 @@ http.createServer(function(req, res) {
       console.log(reqData);
       var queryParams = qstring.parse(reqData)
       console.log(queryParams)
-      getWeather(queryParams.ingredient, res)
-    })
+      getRecipe(queryParams.ingredient, res)
+    }) } else if (req.method == "GET") {
+      let reqData = ''
+      req.on('data', function(chunk) {
+        reqData += chunk
+      })
+      req.on('end', function() {
+        var queryParams = qstring.parse(reqData)
+        var ingredient = queryParams.ingredient
+        console.log(queryParams)
+        getRecipe(queryParams.ingredient, res)
+      })
   } else {
     sendResponse(null, res)
   }
