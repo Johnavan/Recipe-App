@@ -3,6 +3,8 @@ const https = require('https') //food2fork now requires https
 let http = require('http')
 let url = require('url')
 let qstring = require('querystring')
+//let express = require('express')
+//let app = express()
 
 const PORT = process.env.PORT || 3000
 
@@ -16,8 +18,8 @@ function sendResponse(recipeData, res) {
     '<input type="submit" value="Get Recipe">' +
     '</form>'
   if (recipeData) {
-    console.log(JSON.parse(recipeData))
-    page += '<h1>Recipes for </h1><p>' + recipeData + '</p>'
+    let info = recipeData
+    page += '<h1>Recipes for </h1><p>' + info + '</p>'
   }
   page += '</body></html>'
   res.end(page);
@@ -70,7 +72,7 @@ http.createServer(function(req, res) {
         var queryParams = qstring.parse(reqData)
         var ingredient = queryParams.ingredient
         console.log(queryParams)
-        getRecipe(queryParams.ingredient, res)
+        getRecipe(ingredient, res)
       })
   } else {
     sendResponse(null, res)
