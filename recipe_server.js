@@ -8,10 +8,15 @@ const API_KEY = 'dea4dc8a0b4924b2c0d98d580f15f5c0' //<== INSERT YOUR KEY HERE
 
 //const PORT = process.env.PORT || 3000
 
-
 app.get('/', function(req, res, next){
   res.render('index', {title: 'food2Fork'})
 })
+
+app.get('/recipeDetails', function(req, res, next) {
+  let ingredient = req.query.ingredient
+  sendRequest(ingredient,res) ;
+
+});
 
 app.post('/recipeDetails', function(req, res) {
     var obj = { ingredient: req.body.ingredient};
