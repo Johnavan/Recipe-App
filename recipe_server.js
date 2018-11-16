@@ -1,40 +1,24 @@
-
 const https = require('https') //food2fork now requires https
-let http = require('http')
+//let http = require('http')
 let url = require('url')
-let qstring = require('querystring')
-//let express = require('express')
-//let app = express()
-
-const PORT = process.env.PORT || 3000
-
+//let qstring = require('querystring')
+let express = require('express')
+let app = express.Router()
 const API_KEY = 'dea4dc8a0b4924b2c0d98d580f15f5c0' //<== INSERT YOUR KEY HERE
 
-function sendResponse(recipeData, res) {
-  var page = '<html><head><title>Food 4 U</title></head>' +
-    '<body>' +
-    '<form method="post">' +
-    'Enter Recipe: <input name="ingredient"><br>' +
-    '<input type="submit" value="Get Recipe">' +
-    '</form>'
-  if (recipeData) {
-    let info = recipeData
-    page += '<h1>Recipes for </h1><p>' + info + '</p>'
-  }
-  page += '</body></html>'
-  res.end(page);
-}
+//const PORT = process.env.PORT || 3000
 
-function parseRecipe(recipeResponse, res) {
-  let recipeData = ''
-  recipeResponse.on('data', function(chunk) {
-    recipeData += chunk
-  })
-  recipeResponse.on('end', function() {
-    sendResponse(recipeData, res)
-  })
-}
 
+app.get('/', function(req, res, next){
+  res.render('index', {title: 'food2Fork'})
+})
+
+app.post('/recipeDetails', function(req, res) {
+    var obj = { ingredient: req.body.ingredient};
+    sendRequest(obj.ingredient,res) ;
+});
+
+//HTTPS request
 function getRecipe(ingredient, res) {
 
   const options = {
@@ -46,7 +30,32 @@ function getRecipe(ingredient, res) {
  }).end()
 }
 
-http.createServer(function(req, res) {
+//response from food2fork api
+function parseRecipe(recipeResponse, res) {
+  let recipeData = ''
+  recipeResponse.on('data', function(chunk) {
+    recipeData += chunk
+  })
+  recipeResponse.on('end', function() {
+    sendResponse(recipeData, res)
+  })
+}
+
+//response to server
+function sendResponse(recipeData, res) {
+
+  if (recipeData) {
+    console.log(recipeData)
+    let info = JSON.parse(info)
+    console.log(info)
+    res.render('recipeDetails', { title: 'Time for a meal', items: info.recipes });
+}
+}
+
+
+
+
+/* http.createServer(function(req, res) {
   let requestURL = req.url
   let query = url.parse(requestURL).query //GET method query parameters if any
   let method = req.method
@@ -83,4 +92,4 @@ http.createServer(function(req, res) {
   console.log(`Server is listening on PORT ${PORT} CNTL-C to quit`)
   console.log(`To Test:`)
   console.log(`http://localhost:3000/`)
-})
+}) */
