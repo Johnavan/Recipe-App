@@ -1,22 +1,16 @@
 {
-  "name": "recipe-app",
+  "name": "Recipe-App",
   "version": "1.0.0",
-  "description": "App that uses food2Fork api",
-  "main": "recipe_server.js",
+  "description": "Assignmet 4 for COMP2406",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Johnavan/Recipe-App.git"
-  },
   "author": "Johnavan Thomas",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Johnavan/Recipe-App/issues"
-  },
-  "homepage": "https://github.com/Johnavan/Recipe-App#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
     "express": "^4.16.4"
   }
 }
