@@ -1,7 +1,7 @@
 {
   "name": "Recipe-App",
   "version": "1.0.0",
-  "description": "Assignmet 4 for COMP2406",
+  "description": "Assignmet 4",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

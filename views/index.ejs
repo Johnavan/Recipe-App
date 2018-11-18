@@ -15,19 +15,17 @@
   </div>
 
 </form>
-<h4>
-  <%= items %>
-  </h4>
-  
+
+
 <% if (items){ %>
 <div class="displayFoods">
   <div class="row">
     <%for (item in items){ %>
+    <%let obj = {
+      "url":item.f2f_url,
+      "img":item.image_url
+  }%>
     <div class="recipeCards" id='card'>
-      <% const obj = {
-                "url":item.f2f_url,
-                "img":item.image_url
-              } %>
       <a href=obj.url img class="img-top" src=obj.img </a>
       <div class="card-body">
         <h3 class="card-title"> #{item.title}>

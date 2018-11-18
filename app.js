@@ -29,21 +29,3 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.listen(3000,function(){
   console.log('Server Started on Port 3000')
 })
-
-/*
-app.get('/', function(req, res){
-  res.render('index', {
-    title: 'Food 4 U'
-  })
-})
-
-app.get('/recipes', function(req, res, next) {
-  let ingredient = req.query.ingredient
-  sendRequest(ingredient,res) ;
-});
-
-app.post('/recipes', function(req, res) {
-    var obj = { ingredient: req.body.ingredient};
-    sendRequest(obj.ingredient,res) ;
-});
-*/
