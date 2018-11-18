@@ -15,20 +15,28 @@
   </div>
 
 </form>
-
-
-
-<% if (items)
-<div class = "displayFoods">
-  <div class = "row">
-        for (item in items){
-            <div class = "recipeCards" id = 'card'>
-            const obj = {"url":item.f2f_url,"img":item.image_url}
-              //- -const obj={"url":"url","img":"img"}
-              a(href=obj.url)
-                img.card-img-top(src=obj.img,style=pstyle)
-            div.card-body
-              h3.card-title #{item.title} }
-      </div>
+<h4>
+  <%= items %>
+  </h4>
+  
+<% if (items){ %>
+<div class="displayFoods">
+  <div class="row">
+    <%for (item in items){ %>
+    <div class="recipeCards" id='card'>
+      <% const obj = {
+                "url":item.f2f_url,
+                "img":item.image_url
+              } %>
+      <a href=obj.url img class="img-top" src=obj.img </a>
+      <div class="card-body">
+        <h3 class="card-title"> #{item.title}>
     </div>
+  </div>
+  <%  } %>
+</div>
+</div>
+
+<% } %>
+
 <% include partials/footer %>

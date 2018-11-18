@@ -12,7 +12,8 @@ router.use(bodyParser.urlencoded({
 
 router.get('/', function(req, res) {
   res.render('index', {
-    title: 'Food 4 U'
+    title: 'Food 4 U',
+    items: ''
   })
 })
 
@@ -55,7 +56,7 @@ function sendResponse(data, res) {
 
   if (data) {
     let obj = JSON.parse(data)
-    //console.log(obj)
+    //console.log(obj.recipes)
     res.render('index', {
       title: 'Enjoy your meal',
       items: obj.recipes
