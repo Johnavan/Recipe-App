@@ -4,13 +4,31 @@
   <%= title %>
 </h1>
 
-<div class="input_1">
-  <input class="searchInput" id="search" type="text" name="search" placeholder="search for recipes">
-</div>
+<form class="searchBar" method="POST" action="/recipes">
+  <div class="input_1">
+    <input class="searchInput" id="search" type="text" name="searchBar" placeholder="search for recipes">
+  </div>
 
-<div class="buttons">
-  <button class="submitButtons" type="submit">Submit </button>
-  <button class="homeButton" type="submit">Home </button>
-</div>
+  <div class="buttons">
+    <button class="submitButtons" type="submit">Submit </button>
+    <button class="homeButton" type="submit">Home </button>
+  </div>
 
+</form>
+
+
+
+<% if (items)
+<div class = "displayFoods">
+  <div class = "row">
+        for (item in items){
+            <div class = "recipeCards" id = 'card'>
+            const obj = {"url":item.f2f_url,"img":item.image_url}
+              //- -const obj={"url":"url","img":"img"}
+              a(href=obj.url)
+                img.card-img-top(src=obj.img,style=pstyle)
+            div.card-body
+              h3.card-title #{item.title} }
+      </div>
+    </div>
 <% include partials/footer %>

@@ -1,8 +1,14 @@
 let express = require('express')
+let bodyParser = require('body-parser')
 const https = require('https')
 const API_KEY = 'dea4dc8a0b4924b2c0d98d580f15f5c0'
 
 let router = express.Router()
+
+router.use(bodyParser.json())
+router.use(bodyParser.urlencoded({
+  extended: false
+}))
 
 router.get('/', function(req, res) {
   res.render('index', {
@@ -17,10 +23,11 @@ router.get('/recipes', function(req, res, next) {
 
 router.post('/recipes', function(req, res) {
   var obj = {
-    ingredient: req.body.ingredient
+    searchBar: req.body.searchBar
   }
+  getRecipe(obj.searchBar, res);
 
-  getRecipe(obj.ingredient, res);
+
 })
 
 function getRecipe(ingredient, res) {
@@ -48,6 +55,7 @@ function sendResponse(data, res) {
 
   if (data) {
     let obj = JSON.parse(data)
+    //console.log(obj)
     res.render('index', {
       title: 'Enjoy your meal',
       items: obj.recipes
