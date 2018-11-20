@@ -13,6 +13,7 @@ router.use(bodyParser.urlencoded({
 router.get('/', function(req, res) {
   res.render('index', {
     title: 'Food 4 U',
+    yes:'',
     items: ''
   })
 })
@@ -54,12 +55,23 @@ function parseRecipe(recipeResponse, res) {
 
 function sendResponse(data, res) {
 
+  let obj_url = {}
+
   if (data) {
     let obj = JSON.parse(data)
-    console.log(obj.recipes)
+    let items = obj.recipes
+
+    for(recipes in items)  {
+      let url_items = items[recipes].f2f_url
+      let images_items = items[recipes].image_url
+
+
+    }
+console.log(url_items)
     res.render('index', {
       title: 'Enjoy your meal',
-      items: obj.recipes
+    items: obj.recipes
+
     })
   }
 }
