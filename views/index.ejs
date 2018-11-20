@@ -18,24 +18,14 @@
 
 
 <% if (items){ %>
-<div class="displayFoods">
-  <div class="row">
-    <%for (item in items){ %>
-    <%let obj = {
-      "url":item.f2f_url,
-      "img":item.image_url
-  }%>
-  
-    <div class="recipeCards" id='card'>
-      <a href= obj.url img class="img-top" src=obj.img </a>
-      <div class="card-body">
-        <h3 class="card-title"> #{item.title}>
-    </div>
-  </div>
-  <%  } %>
-</div>
-</div>
+
+  <% for (links in url){ %>
+  <img src='<%= images[links] %>'>
+ <a href='<%= url[links] %>'>'<%=recipeTitle[links] %>'</a>
+
+  <% } %>
 
 <% } %>
+
 
 <% include partials/footer %>

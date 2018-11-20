@@ -13,8 +13,9 @@ router.use(bodyParser.urlencoded({
 router.get('/', function(req, res) {
   res.render('index', {
     title: 'Food 4 U',
-    yes:'',
-    items: ''
+    items: '',
+    url: '',
+    images: ''
   })
 })
 
@@ -56,21 +57,28 @@ function parseRecipe(recipeResponse, res) {
 function sendResponse(data, res) {
 
   let obj_url = {}
+  let obj_img = {}
+  let obj_title = {}
 
   if (data) {
     let obj = JSON.parse(data)
     let items = obj.recipes
 
-    for(recipes in items)  {
-      let url_items = items[recipes].f2f_url
-      let images_items = items[recipes].image_url
-
-
+    for (recipes in items) {
+      obj_url[recipes] = items[recipes].f2f_url
+      obj_img[recipes] = items[recipes].image_url
+      obj_title[recipes] = items[recipes].title
     }
-console.log(url_items)
+    console.log(obj_title)
+
+    //console.log(obj_url)
+    //console.log(obj_img)
     res.render('index', {
       title: 'Enjoy your meal',
-    items: obj.recipes
+      items: obj.recipes,
+      url: obj_url,
+      images: obj_img,
+      recipeTitle: obj_title
 
     })
   }
