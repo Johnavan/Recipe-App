@@ -1,12 +1,14 @@
 <% include partials/header %>
-
+<link href="/stylesheets/style.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Pacifico|Roboto" rel="stylesheet">
+<div class = "topOfthePage">
 <h1>
   <%= title %>
 </h1>
 
 <form class="searchBar" method="POST" action="/recipes">
   <div class="input_1">
-    <input class="searchInput" id="search" type="text" name="searchBar" placeholder="search for recipes">
+    <input class="searchInput" id="search" type="text" name="searchBar" placeholder="Search here">
   </div>
 
   <div class="buttons">
@@ -15,17 +17,22 @@
   </div>
 
 </form>
+</div>
+
 
 
 <% if (items){ %>
 
+<div class="cards">
   <% for (links in url){ %>
-  <img src='<%= images[links] %>'>
- <a href='<%= url[links] %>'>'<%=recipeTitle[links] %>'</a>
-
+    <div class="indivdualCards">
+  <img src='<%= images[links] %>'style="width:328px;height:328px;">
+ <a class = "recipeLinks" href='<%= url[links] %>' target="_blank"><%=recipeTitle[links] %></a>
+</div>
   <% } %>
 
 <% } %>
+</div>
 
 
 <% include partials/footer %>

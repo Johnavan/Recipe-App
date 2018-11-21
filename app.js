@@ -6,12 +6,6 @@ let routing = require('./routes/index')
 
 let app = express()
 
-let logger = function (req,res,next) {
-  console.log('Logging..')
-  next()
-}
-
-//app.use(logger)
 
 // view engine setup
 app.set('view engine', 'ejs');

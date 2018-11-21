@@ -1,7 +1,9 @@
 let express = require('express')
 let bodyParser = require('body-parser')
+let qstring = require('querystring')
+let url = require('url')
 const https = require('https')
-const API_KEY = '34fcbe59a99ae8b938944b5886537c60'
+const API_KEY = 'dea4dc8a0b4924b2c0d98d580f15f5c0'
 
 let router = express.Router()
 
@@ -19,8 +21,30 @@ router.get('/', function(req, res) {
   })
 })
 
+router.get('/recipes.html', function(req, res) {
+  res.render('index', {
+    title: 'Food 4 U',
+    items: '',
+    url: '',
+    images: ''
+  })
+  })
+
+  router.get('/index.html', function(req, res) {
+    res.render('index', {
+      title: 'Food 4 U',
+      items: '',
+      url: '',
+      images: ''
+    })
+    })
+
+
 router.get('/recipes', function(req, res, next) {
-  let ingredient = req.query.ingredient
+  let requestURL = req.url
+  let query = url.parse(requestURL).query
+  let queryParams = qstring.parse(query)
+  let ingredient = queryParams.ingredients
   getRecipe(ingredient, res);
 })
 
@@ -69,10 +93,8 @@ function sendResponse(data, res) {
       obj_img[recipes] = items[recipes].image_url
       obj_title[recipes] = items[recipes].title
     }
-    console.log(obj_title)
 
-    //console.log(obj_url)
-    //console.log(obj_img)
+
     res.render('index', {
       title: 'Enjoy your meal',
       items: obj.recipes,
